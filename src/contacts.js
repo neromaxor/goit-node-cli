@@ -1,5 +1,4 @@
 const fs = require("node:fs").promises;
-
 const path = require("node:path");
 const { nanoid } = require("nanoid");
 
@@ -34,8 +33,8 @@ async function removeContact(contactId) {
     const updatedContacts = contacts.filter(
       (contact) => contact.id !== contactId
     );
-    return true;
     await fs.writeFile(contactsPath, JSON.stringify(updatedContacts, null, 2));
+    return true;
   } catch (error) {
     console.error("Error removing contact:", error);
     return false;
@@ -56,3 +55,10 @@ async function addContact(name, email, phone) {
     return null;
   }
 }
+
+module.exports = {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};
